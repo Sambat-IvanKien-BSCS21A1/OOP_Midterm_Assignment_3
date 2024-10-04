@@ -1,11 +1,11 @@
-namespace TestProject1;
+﻿using ClassLibrary1;
+namespace TestProject2;
 
 using System;
-using Xunit;
 
 public class EncapsulationTests
 {
-    [Fact]
+    [TestMethod]
     public void Deposit_IncreasesBalance()
     {
         // Arrange
@@ -15,10 +15,10 @@ public class EncapsulationTests
         account.Deposit(500);
 
         // Assert
-        Assert.Equal(1500, account.GetBalance());
+        Assert.AreEqual(1500, account.GetBalance());
     }
 
-    [Fact]
+    [TestMethod]
     public void Withdraw_DecreasesBalance()
     {
         // Arrange
@@ -28,10 +28,10 @@ public class EncapsulationTests
         account.Withdraw(200);
 
         // Assert
-        Assert.Equal(800, account.GetBalance());
+        Assert.AreEqual(800, account.GetBalance());
     }
 
-    [Fact]
+    [TestMethod]
     public void CalculateInterest_IncreasesBalance()
     {
         // Arrange
@@ -42,13 +42,13 @@ public class EncapsulationTests
         account.CalculateInterest();
 
         // Assert
-        Assert.Equal(1050, account.GetBalance());
+        Assert.AreEqual(1050, account.GetBalance());
     }
 
-    [Theory]
-    [InlineData(1000, true)]
-    [InlineData(1000, false)]
-    [InlineData(9000, false)]
+    [DataTestMethod]
+    [DataRow(1000, true)]
+    [DataRow(1000, false)]
+    [DataRow(9000, false)]
     public void Withdraw_OtherBanksShouldHaveChargeOfTwentyPesos(int amount, bool isOtherBank)
     {
         // Arrange
@@ -61,6 +61,6 @@ public class EncapsulationTests
         account.Withdraw(amount, isOtherBank);
 
         // Assert
-        Assert.Equal(1000 - amount - penalty, account.GetBalance());
+        Assert.AreEqual(1000 - amount - penalty, account.GetBalance());
     }
 }

@@ -1,8 +1,9 @@
-﻿namespace TestProject1;
+using ClassLibrary1;
+namespace TestProject2;
 
 public class ClassRelationshipsTest
 {
-    [Fact]
+    [TestMethod]
     public void AddBook_IncreasesBookCount()
     {
         // Arrange
@@ -13,10 +14,10 @@ public class ClassRelationshipsTest
         library.AddBook(book);
 
         // Assert
-        Assert.Single(library.GetBooks());
+        Assert.AreEqual(1, library.GetBooks().Count());
     }
 
-    [Fact]
+    [TestMethod]
     public void RemoveBook_DecreasesBookCount()
     {
         // Arrange
@@ -28,10 +29,10 @@ public class ClassRelationshipsTest
         library.RemoveBook(book);
 
         // Assert
-        Assert.Empty(library.GetBooks());
+        Assert.AreEqual(0, library.GetBooks().Count());
     }
 
-    [Fact]
+    [TestMethod]
     public void SearchBook_ReturnsCorrectBook()
     {
         // Arrange
@@ -43,10 +44,10 @@ public class ClassRelationshipsTest
         Book foundBook = library.SearchBook("Title");
 
         // Assert
-        Assert.Equal(book, foundBook);
+        Assert.AreEqual(book, foundBook);
     }
 
-    [Fact]
+    [TestMethod]
     public void LibraryHasCompositionRelationshipWithBook()
     {
         // Arrange
@@ -57,10 +58,10 @@ public class ClassRelationshipsTest
         library.AddBook(book);
 
         // Assert
-        Assert.Contains(book, library.GetBooks());
+        Assert.IsTrue(library.GetBooks().Contains(book));
     }
 
-    [Fact]
+    [TestMethod]
     public void CustomerHasAggregationRelationshipWithOrder()
     {
         // Arrange
@@ -73,13 +74,13 @@ public class ClassRelationshipsTest
         customer.AddOrder(order2);
 
         // Assert
-        Assert.Contains(order1, customer.GetOrders());
-        Assert.Contains(order2, customer.GetOrders());
+        Assert.IsTrue(customer.GetOrders().Contains(order1));
+        Assert.IsTrue(customer.GetOrders().Contains(order2));
     }
 
     public class OrderProcessorTests
     {
-        [Fact]
+        [TestMethod]
         public void OrderProcessorHasDependencyRelationshipWithEmailSender()
         {
             // Arrange
@@ -90,8 +91,7 @@ public class ClassRelationshipsTest
             var emailSent = orderProcessor.ProcessOrder(new Order());
 
             // Assert
-            // Verify that the email sender was called
-            Assert.NotNull(emailSent);
+            Assert.IsNotNull(emailSent);
         }
     }
 }

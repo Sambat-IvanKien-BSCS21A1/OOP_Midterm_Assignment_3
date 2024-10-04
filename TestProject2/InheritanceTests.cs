@@ -1,11 +1,10 @@
-﻿using System;
-using Xunit;
+﻿using ClassLibrary1;
 
-namespace TestProject1;
+namespace TestProject2;
 
 public class InheritanceTests
 {
-    [Fact]
+    [TestMethod]
     public void CalculateInterest_AppliesHigherRate()
     {
         // Arrange
@@ -15,16 +14,16 @@ public class InheritanceTests
         account.CalculateInterest();
 
         // Assert
-        Assert.Equal(1075, account.GetBalance()); // Adjusted for higher rate
+        Assert.AreEqual(1075, account.GetBalance()); // Adjusted for higher rate
     }
 
-    [Fact]
+    [TestMethod]
     public void InheritsFromBankAccount()
     {
         // Arrange
         SavingsAccount account = new SavingsAccount(12345, 1000, 0.05);
 
         // Assert
-        Assert.True(account is BankAccount);
+        Assert.IsTrue(account is BankAccount);
     }
 }
